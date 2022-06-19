@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:rickandmorty/repository/repository.dart';
 import 'package:rickandmorty/view/home_page.dart';
 
 void main() {
+  final rep = Repository();
+  rep.fetchAllCarachters();
   runApp(const MyApp());
 }
 
