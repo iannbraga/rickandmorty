@@ -1,18 +1,20 @@
 import 'package:dio/dio.dart';
+import 'package:rickandmorty/model/rick_morty_model.dart';
 
 class Repository {
-  final urlInicial = 'https://rickandmortyapi.com/api/character';
+  final String urlInicial = 'https://rickandmortyapi.com/api/character';
+  final dio = Dio();
 
   Future<List<RickMortyModel>> fetchAllCarachters() async {
-    final dio = Dio();
     final response = await dio.get(urlInicial);
-    var list = response.data['results'] as List;
 
-    List<String> personagens = [];
+    final listaJson = response.data['results'] as List;
 
-    for (var item in list) {
-      final personagem = RickMortyModel.fromJson(item);
-      personagens.add(item);
+    List<RickMortyModel> personagens = [];
+
+    for (var item in listaJson) {
+      final resultado = RickMortyModel.fromJson(item);
+      personagens.add(resultado);
     }
     return personagens;
   }

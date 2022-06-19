@@ -6,8 +6,14 @@ class RickMortyModel {
   String? gender;
   String? image;
 
-  RickMortyModel(
-      {this.id, this.name, this.status, this.species, this.gender, this.image});
+  RickMortyModel({
+    this.id,
+    this.name,
+    this.status,
+    this.species,
+    this.gender,
+    image,
+  });
 
   RickMortyModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -19,7 +25,7 @@ class RickMortyModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     data['status'] = status;
