@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:rickandmorty/controller/rick_morty_controller.dart';
+import 'package:rickandmorty/widget/custom_text.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -35,22 +36,32 @@ class _HomePageState extends State<HomePage> {
                   child: ListView.builder(
                       itemCount: controller.personagens.length,
                       itemBuilder: (context, index) {
-                        return Card(
-                          child: ListTile(
-                            leading: Image.network(
-                              controller.personagens[index].image.toString(),
-                            ),
-                            title: Text(
-                                controller.personagens[index].name.toString()),
-                            subtitle: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                SizedBox(
-                                  width: 5,
+                        var c = controller.personagens[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: 150,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image.network(
+                                  c.image.toString(),
                                 ),
-                                Text(
-                                    '${controller.personagens[index].status.toString()} - ${controller.personagens[index].gender.toString()}'),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    CustomText(texto: c.name.toString()),
+                                    Text('Genero: ${c.gender.toString()}'),
+                                    Text('Status: ${c.status.toString()}'),
+                                    Text('Espécie: ${c.species.toString()}')
+                                  ],
+                                ),
                               ],
                             ),
                           ),
