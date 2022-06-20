@@ -1,9 +1,17 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:rickandmorty/controller/rick_morty_controller.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final controller = RickMortyController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,37 +28,36 @@ class HomePage extends StatelessWidget {
               keyboardType: TextInputType.name,
             ),
           ),
-          Flexible(
-            child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      leading: Container(
-                        width: 50,
-                        height: 50,
-                        color: Colors.blue,
-                      ),
-                      title: Text('Nome do personagem'),
-                      subtitle: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: const <Widget>[
-                          Icon(
-                            Icons.circle,
-                            color: Colors.green,
-                            size: 10,
+          FutureBuilder<dynamic>(
+              future: controller.getPersonagens(),
+              builder: (context, snapshot) {
+                return Flexible(
+                  child: ListView.builder(
+                      itemCount: controller.personagens.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: ListTile(
+                            leading: Image.network(
+                              controller.personagens[index].image.toString(),
+                            ),
+                            title: Text(
+                                controller.personagens[index].name.toString()),
+                            subtitle: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                    '${controller.personagens[index].status.toString()} - ${controller.personagens[index].gender.toString()}'),
+                              ],
+                            ),
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text('Vivo - Human'),
-                        ],
-                      ),
-                    ),
-                  );
-                }),
-          ),
+                        );
+                      }),
+                );
+              }),
         ],
       ),
     );
