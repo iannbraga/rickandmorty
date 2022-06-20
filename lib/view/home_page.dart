@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('API Rick an Morty'),
       ),
       body: Column(
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        height: 150,
+                        height: 100,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -77,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                                 CustomText(texto: c.name.toString()),
                                 Text('Genero: ${c.gender.toString()}'),
                                 Text('Status: ${c.status.toString()}'),
-                                Text('Espécie: ${c.species.toString()}')
+                                Text('Espécie: ${c.species.toString()}'),
                               ],
                             ),
                           ],
