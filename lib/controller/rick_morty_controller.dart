@@ -6,9 +6,9 @@ class RickMortyController {
   List<RickMortyModel> personagens = [];
   bool status = false;
 
-  Future getPersonagens() async {
+  Future getPersonagens([pagina]) async {
     try {
-      personagens = await _repository.fetchAllCarachters();
+      personagens = await _repository.fetchAllCarachters(pagina);
       for (int i = 0; i < personagens.length; i++) {
         if (personagens[i].status.toString().toLowerCase().contains('alive')) {
           status = true;

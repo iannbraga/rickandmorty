@@ -2,11 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:rickandmorty/model/rick_morty_model.dart';
 
 class Repository {
-  final String urlInicial = 'https://rickandmortyapi.com/api/character';
+  final String urlInicial = 'https://rickandmortyapi.com/api/character/';
   final dio = Dio();
 
-  Future<List<RickMortyModel>> fetchAllCarachters() async {
-    final response = await dio.get(urlInicial);
+  Future<List<RickMortyModel>> fetchAllCarachters([pagina]) async {
+    final response = await dio.get(urlInicial, queryParameters: {
+      'page': pagina,
+    });
 
     final listaJson = response.data['results'] as List;
 
